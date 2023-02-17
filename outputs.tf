@@ -21,3 +21,11 @@ output "ses_username" {
 output "ses_password" {
   value = module.ses.iam_access_key_ses_smtp_password_v4
 }
+
+output "postgres_s3_access_key" {
+  value = aws_iam_access_key.postgres.id
+}
+
+output "postgres_s3_access_key_secret" {
+  value = aws_iam_access_key.postgres.secret
+}

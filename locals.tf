@@ -7,6 +7,26 @@ locals {
 
   full_domain_name = "${var.host_name}.${var.primary_domain_name}"
 
+  postgres_bucket_interact = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = [
+          "s3:ListBucket",
+          "s3:PutObject",
+                "s3:GetObject",
+                "s3:DeleteObject"
+        ]
+        Effect = "Allow"
+        Resource = [
+          aws_s3_bucket.pgbackrest.arn,
+          "${aws_s3_bucket.pgbackrest.arn}/*"
+        ]
+      }
+    ]
+  }
+  )
+
   ecs_task_bucket_read = jsonencode({
     Version = "2012-10-17"
     Statement = [
